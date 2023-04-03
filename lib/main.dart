@@ -5,33 +5,60 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int _selctedIndex = 0;
+  List<Widget> _pages = [
+    Container(color: Colors.black),
+    Container(color: Colors.blue),
+    Container(color: Colors.red),
+    Container(color: Colors.green),
+    Container(color: Colors.yellow),
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        body: _pages[_selctedIndex],
         bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          currentIndex: _selctedIndex,
+          onTap: (index) {
+            setState(() {
+              _selctedIndex = index;
+            });
+          },
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
                 label: '',
-                icon: SvgPicture.asset('assets/vectors/home-outline.svg')),
+                icon: SvgPicture.asset(_selctedIndex == 0
+                    ? 'assets/vectors/home-bold.svg'
+                    : 'assets/vectors/home-outline.svg')),
             BottomNavigationBarItem(
                 label: '',
-                icon: SvgPicture.asset('assets/vectors/search-outline.svg')),
+                icon: SvgPicture.asset(_selctedIndex == 1
+                    ? 'assets/vectors/search-bold.svg'
+                    : 'assets/vectors/search-outline.svg')),
             BottomNavigationBarItem(
                 label: '',
-                icon:
-                    SvgPicture.asset('assets/vectors/add-square-outline.svg')),
+                icon: SvgPicture.asset(_selctedIndex == 2
+                    ? 'assets/vectors/add-square-bold.svg'
+                    : 'assets/vectors/add-square-outline.svg')),
             BottomNavigationBarItem(
                 label: '',
-                icon:
-                    SvgPicture.asset('assets/vectors/video-play-outline.svg')),
+                icon: SvgPicture.asset(_selctedIndex == 3
+                    ? 'assets/vectors/video-play-bold.svg'
+                    : 'assets/vectors/video-play-outline.svg')),
             BottomNavigationBarItem(
-                label: 'test',
+                label: '',
                 icon: Container(
                   height: 30,
                   width: 30,
